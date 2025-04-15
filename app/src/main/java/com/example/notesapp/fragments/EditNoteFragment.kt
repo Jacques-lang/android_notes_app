@@ -23,6 +23,7 @@ import com.example.notesapp.databinding.FragmentEditNoteBinding
 import com.example.notesapp.model.Note
 import com.example.notesapp.viewmodel.NoteViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
@@ -125,8 +126,8 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
         binding.editdeleteNotebutton.setOnClickListener {
             it.startAnimation(delete_button_animation)
             it.postDelayed({
-            }, 100)
-            deleteNote()
+                deleteNote()
+            }, 400)
         }
 
         binding.editUploadFileIcon.setOnClickListener {
@@ -220,8 +221,10 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
             setMessage("Are you sure you want to delete this note?")
             setPositiveButton("Delete"){_,_ ->
                 notesViewModel.deleteNote(currentNote)
-                Toast.makeText(context, "Note deleted", Toast.LENGTH_SHORT).show()
                 view?.findNavController()?.popBackStack(R.id.homeFragment, false)
+                Snackbar.make(requireView(), "Note deleted", Snackbar.LENGTH_SHORT)
+                    .setAction("Undo") { notesViewModel.addNote(currentNote) }
+                    .show()
             }
             setNegativeButton("Cancel",null)
         }.create().show()
