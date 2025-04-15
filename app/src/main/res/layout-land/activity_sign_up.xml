@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:src="@drawable/baseline_account_circle_24"
+            android:src="@drawable/baseline_account_circle_signup"
             android:contentDescription="@string/app_name" />
 
         <TextView
