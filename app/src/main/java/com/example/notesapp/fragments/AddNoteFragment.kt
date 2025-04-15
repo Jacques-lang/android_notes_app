@@ -129,7 +129,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note) {
             true
         }
     }
-    //ee
+
     private fun uploadImageToFireBase(uri: Uri) {
         isImageUploading = true
 
