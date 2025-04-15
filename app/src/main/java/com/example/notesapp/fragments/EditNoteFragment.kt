@@ -81,6 +81,11 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
         val delete_button_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
         val edit_upload_button = AnimationUtils.loadAnimation(context, R.anim.button_press)
         val edit_image_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
+        val shareicon_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
+        val arrowback_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
+        val reminder_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
+
+
 
         val restoredUrl = savedInstanceState?.getString("editedImageUrl")
         if (!restoredUrl.isNullOrEmpty()) {
@@ -138,6 +143,30 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
                 }
                 imagePickerLauncher.launch(intent)
             },200)
+        }
+
+        binding.shareicon?.setOnClickListener {
+            it.startAnimation(shareicon_animation)
+            it.postDelayed({
+                val shareText = "Title: ${currentNote.title}\n\n${currentNote.description}"
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share note via"))
+            }, 100)
+        }
+
+        binding.arrowBack?.setOnClickListener {
+            it.startAnimation(arrowback_animation)
+            it.postDelayed({
+                view.findNavController().popBackStack(R.id.homeFragment, false)
+            },100)
+        }
+
+        binding.setReminder?.setOnClickListener {
+            it.startAnimation(reminder_animation)
+            it.postDelayed({},100)
         }
 
         binding.editUploadedImageView.setOnLongClickListener {

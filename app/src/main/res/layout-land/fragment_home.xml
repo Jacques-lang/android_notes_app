@@ -16,7 +16,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingEnd="8dp"
-        android:gravity="start">
+        android:gravity="start"
+        tools:ignore="RtlSymmetry">
 
         <!-- Menu Row -->
         <LinearLayout
@@ -139,7 +140,7 @@
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="10dp"
             android:focusable="true"
             android:visibility="visible" />

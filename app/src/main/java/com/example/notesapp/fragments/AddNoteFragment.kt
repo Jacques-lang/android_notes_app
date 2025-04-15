@@ -78,6 +78,8 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note) {
         val save_button_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
         val upload_button_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
         val image_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
+        val arrowback_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
+
 
         uploadedImagedURL = savedInstanceState?.getString("uploadedImageUrl")
         uploadedImagedURL?.let {
@@ -105,6 +107,13 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note) {
                 }
                 imagePickerLauncher.launch(intent)
             }, 200)
+        }
+
+        binding?.arrowBack?.setOnClickListener {
+            it.startAnimation(arrowback_animation)
+            it.postDelayed({
+                view.findNavController().popBackStack(R.id.homeFragment, false)
+            },100)
         }
         binding?.uploadedImageView?.setOnLongClickListener {
             if(uploadedImagedURL.isNullOrEmpty()){

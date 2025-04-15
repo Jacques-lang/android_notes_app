@@ -38,6 +38,9 @@
     <string name="user_profile" />
     <string name="username">Username</string>
     <string name="image_uploaded">image uploaded</string>
+    <string name="share_button">share button</string>
+    <string name="set_reminder">set reminder</string>
+    <string name="arrowback">arrowback</string>
 
 
 </resources>
