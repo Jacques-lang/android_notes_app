@@ -38,7 +38,6 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
     private lateinit var currentNote: Note
     private var isImageUploading = false
     private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
-
     private val args: EditNoteFragmentArgs by navArgs()
 
 

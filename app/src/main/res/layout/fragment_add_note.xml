@@ -61,13 +61,10 @@
                 android:autofillHints=""
                 android:hint="@string/description"
                 android:background="@drawable/rounded_corner"
-                android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:gravity="top|start"
                 android:layout_margin="5dp"
                 android:layout_gravity="center" />
-
-
         </FrameLayout>
         <ImageView
             android:id="@+id/uploadedImageView"
@@ -77,9 +74,8 @@
             android:focusable="true"
             android:visibility="gone"
             android:clickable="true"
-            android:layout_marginBottom="10dp"
             android:scaleType="centerInside"
-            android:layout_margin="10dp"/>
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <LinearLayout
