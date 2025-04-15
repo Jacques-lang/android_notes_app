@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="save_note">Save Note</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="add_new_note">Add new note</string>
+    <string name="coffee_image">Coffee Image</string>
+    <string name="NOTE">NOTES</string>
+    <string name="new_note">New Note</string>
+    <string name="delete">Delete</string>
+    <string name="date">Jan 21 2021</string>
+    <string name="add_button">Add Button</string>
+    <string name="search_note">Search Note</string>
+    <string name="search">Search</string>
+    <string name="edit_note">Edit Note</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save">Save</string>
+    <string name="empty_notes">Empty Notes</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="no_matching_notes">No matching notes</string>
+    <string name="no_notes_click_on_to_add_a_note">No notes, click on + to add a note</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="write_your_notes">Write your notes...</string>
+    <string name="search_your_notes">Search your notes...</string>
+    <string name="search_your_notesEdit">Search your notes...</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="menu_icon">menu_icon</string>
+    <string name="sign_out">Sign out</string>
+    <string name="upload_file">Upload an image file</string>
+    <string name="upload_button">upload button</string>
+    <string name="user">User</string>
+    <string name="user_profile" />
+    <string name="username">Username</string>
+    <string name="image_uploaded">image uploaded</string>
+
+
+</resources>

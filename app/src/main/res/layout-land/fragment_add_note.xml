@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/login_background"
+    android:padding="16dp"
+    tools:context=".AddNoteFragment">
+
+    <!-- Left Panel: Inputs -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_corner"
+        android:layout_margin="28dp"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/bookmarkImage"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:contentDescription="@string/coffee_image"
+            android:src="@drawable/baseline_bookmark_add_24"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/titletextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_note"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/titleinput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            android:background="@drawable/rounded_corner"
+            android:inputType="text"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp" />
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/descriptioninput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/description"
+                android:background="@drawable/rounded_corner"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:gravity="top|start" />
+
+            <LinearLayout
+                android:id="@+id/uploadFileIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/baseline_file_upload_24"
+                    android:contentDescription="@string/upload_button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upload_file"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="11sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"/>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Right Panel: Image Preview + Save Button -->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/uploadedImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:background="@drawable/rounded_corner"
+            android:visibility="gone"
+            android:layout_centerInParent="true" />
+
+        <ImageButton
+            android:id="@+id/savebutton"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/pink"
+            android:contentDescription="@string/add_button"
+            android:src="@drawable/baseline_done_24"
+            android:scaleType="centerInside" />
+    </RelativeLayout>
+</LinearLayout>

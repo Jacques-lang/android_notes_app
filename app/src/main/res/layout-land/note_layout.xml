@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_corner">
+        <TextView
+            android:id="@+id/titleoutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="My title"/>
+
+        <TextView
+            android:id="@+id/descriptionoutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="170dp"
+            tools:text="My long long long description"/>
+        <ImageView
+            android:id="@+id/imageOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ImageView>
+    </LinearLayout>
+</layout>
+
