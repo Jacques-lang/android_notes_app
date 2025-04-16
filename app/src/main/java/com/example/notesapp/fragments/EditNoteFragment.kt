@@ -110,14 +110,14 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
                 .into(binding.editUploadedImageView)
         }
 
-        binding.edittitleinput.setText(currentNote.title)
-        binding.editdescriptioninput.setText(currentNote.description)
-
         if(!currentNote.fileURL.isNullOrEmpty()){
             Glide.with(this)
                 .load(currentNote.fileURL)
                 .into(binding.editUploadedImageView)
         }
+
+        binding.edittitleinput.setText(currentNote.title)
+        binding.editdescriptioninput.setText(currentNote.description)
 
         binding.editNotebutton.setOnClickListener {
             it.postDelayed({editSaveNote(editNoteView)}, 600)

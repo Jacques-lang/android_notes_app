@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.notesapp.model.Note
 import com.example.notesapp.repository.Repository
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -31,7 +32,7 @@ class NoteViewModel(app: Application, private val noteRepository: Repository): A
         return noteRepository.getNotesByUser(uid)
     }
 
-    fun getNoteById(noteId:Int): LiveData<Note>{
-        return noteRepository.getNoteById(noteId)
+    fun getReminderDate(timestamp: Long): LiveData<Note>{
+        return noteRepository.getReminderDate(timestamp)
     }
 }
