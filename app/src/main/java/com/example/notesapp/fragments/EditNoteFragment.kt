@@ -1,8 +1,14 @@
 package com.example.notesapp.fragments
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,13 +25,16 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.notesapp.MainActivity
 import com.example.notesapp.R
+import com.example.notesapp.ReminderReceiver
 import com.example.notesapp.databinding.FragmentEditNoteBinding
 import com.example.notesapp.model.Note
 import com.example.notesapp.viewmodel.NoteViewModel
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import java.util.Calendar
 import java.util.UUID
 
 
@@ -145,7 +154,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
             },200)
         }
 
-        binding.shareicon?.setOnClickListener {
+        binding.shareicon.setOnClickListener {
             it.startAnimation(shareicon_animation)
             it.postDelayed({
                 val shareText = "Title: ${currentNote.title}\n\n${currentNote.description}"
@@ -157,16 +166,18 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
             }, 100)
         }
 
-        binding.arrowBack?.setOnClickListener {
+        binding.arrowBack.setOnClickListener {
             it.startAnimation(arrowback_animation)
             it.postDelayed({
                 view.findNavController().popBackStack(R.id.homeFragment, false)
             },100)
         }
 
-        binding.setReminder?.setOnClickListener {
+        binding.setReminder.setOnClickListener {
             it.startAnimation(reminder_animation)
-            it.postDelayed({},100)
+            it.postDelayed({
+                setReminder()
+            },100)
         }
 
         binding.editUploadedImageView.setOnLongClickListener {
@@ -286,9 +297,65 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
         view.findNavController().popBackStack(R.id.homeFragment, false)
     }
 
+    private fun setReminder(){
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select reminder date")
+            .build()
+
+
+        datePicker.show(parentFragmentManager, "datePicker")
+
+        datePicker.addOnPositiveButtonClickListener { selectedDate ->
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = selectedDate
+
+            val timePicker = TimePickerDialog(
+                requireContext(),
+                { _, hourOfDay, minute ->
+                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    calendar.set(Calendar.MINUTE, minute)
+                    calendar.set(Calendar.SECOND, 0)
+                    scheduleReminder(calendar.timeInMillis)
+                }, calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE), false
+            )
+            timePicker.show()
+        }
+    }
+
+    private fun scheduleReminder(triggerTime: Long) {
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            if(!alarmManager.canScheduleExactAlarms()){
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                startActivity(intent)
+                Toast.makeText(context, "Please give permission to set alarms", Toast.LENGTH_LONG).show()
+                return
+            }
+        }
+        val intent = Intent(requireContext(), ReminderReceiver::class.java).apply {
+            putExtra("noteTitle", currentNote.title)
+            putExtra("noteDescription", currentNote.description)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            requireContext(), System.currentTimeMillis().toInt(),
+            intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        try{
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
+            Toast.makeText(requireContext(), "Reminder Set!", Toast.LENGTH_SHORT).show()
+        }catch (e: SecurityException){
+            Toast.makeText(context, "Alarm permission denied", Toast.LENGTH_SHORT).show()
+        }
+
+
+    }
     override fun onDestroy() {
         super.onDestroy()
         editNoteBinding = null
     }
-
 }
+

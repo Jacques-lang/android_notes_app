@@ -166,7 +166,6 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note) {
             }
     }
 
-
     private fun saveNote(view: View){
         val noteTitle = binding?.titleinput?.text.toString().trim()
         val noteDescription = binding?.descriptioninput?.text.toString().trim()

@@ -50,14 +50,6 @@ class MainActivity : AppCompatActivity() {
             },100)
         }
 
-
-
-
-
-
-
-
-
     }
 
     private fun setUpViewModel(){
@@ -65,4 +57,6 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory(application, noteRepository)
         noteViewModel = ViewModelProvider(this, viewModelFactory)[NoteViewModel::class.java]
     }
+
 }
+

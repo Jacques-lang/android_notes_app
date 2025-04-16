@@ -30,4 +30,8 @@ class NoteViewModel(app: Application, private val noteRepository: Repository): A
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return MutableLiveData(emptyList())
         return noteRepository.getNotesByUser(uid)
     }
+
+    fun getNoteById(noteId:Int): LiveData<Note>{
+        return noteRepository.getNoteById(noteId)
+    }
 }
