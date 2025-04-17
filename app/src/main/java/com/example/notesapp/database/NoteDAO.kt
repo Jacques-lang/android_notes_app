@@ -29,5 +29,4 @@ interface NoteDAO {
 
     @Query("SELECT * FROM note_table WHERE userID = :uid  ORDER BY timeStamp DESC")
     fun getNotesByUser(uid: String): LiveData<List<Note>>
-
 }
