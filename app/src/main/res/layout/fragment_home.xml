@@ -19,7 +19,8 @@
         android:layout_alignBottom="@id/menuIcon"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="10dp"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        tools:ignore="RelativeOverlap" />
 
 
     <ImageView
@@ -54,6 +55,7 @@
             android:id="@+id/editSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:padding="10dp"
             android:maxLines="1"
             android:singleLine="true"

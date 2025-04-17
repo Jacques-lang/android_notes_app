@@ -41,6 +41,8 @@
     <string name="set_reminder">set reminder</string>
     <string name="arrowback">arrowback</string>
     <string name="date_format">Tomorrow, 8:00 AM</string>
+    <string name="logo">logo</string>
+    <string name="uploaded_image">uploaded image</string>
 
 
 </resources>

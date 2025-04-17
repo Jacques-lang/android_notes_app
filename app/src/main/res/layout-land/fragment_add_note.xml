@@ -6,8 +6,7 @@
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:background="@drawable/login_background"
-    android:padding="16dp"
-    tools:context=".AddNoteFragment">
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/arrow_back"
@@ -29,7 +28,8 @@
         android:orientation="vertical"
         android:background="@drawable/rounded_corner"
         android:layout_marginTop="28dp"
-        android:layout_marginStart="28dp"        android:padding="16dp">
+        android:layout_marginStart="28dp"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/bookmarkImage"
@@ -53,6 +53,7 @@
             android:id="@+id/titleinput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:hint="@string/title"
             android:background="@drawable/rounded_corner"
             android:inputType="text"
@@ -64,12 +65,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            tools:ignore="NestedWeights">
 
             <EditText
                 android:id="@+id/descriptioninput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:autofillHints=""
                 android:hint="@string/description"
                 android:background="@drawable/rounded_corner"
                 android:inputType="textMultiLine"
@@ -84,7 +87,8 @@
                 android:orientation="vertical"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="8dp">
+                android:padding="8dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -117,6 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/uploaded_image"
             android:scaleType="fitXY"
             android:background="@drawable/rounded_corner"
             android:visibility="gone"

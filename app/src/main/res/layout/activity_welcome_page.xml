@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        tools:ignore="UselessParent">
 
         <TextView
             android:layout_width="match_parent"
@@ -31,6 +32,7 @@
         <ImageView
             android:layout_width="180dp"
             android:layout_height="180dp"
+            android:contentDescription="@string/logo"
             android:src="@drawable/logoo"
             android:backgroundTint="@android:color/transparent"
             android:layout_marginTop="15dp"
@@ -71,9 +73,5 @@
             android:textColor="@color/black"
             android:textAllCaps="false">
         </Button>
-
-
     </LinearLayout>
-
-
 </RelativeLayout>
