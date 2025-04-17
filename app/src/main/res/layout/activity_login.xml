@@ -14,11 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:layout_width="160dp"
             android:layout_height="160dp"
+            android:contentDescription="@string/user_profile"
             android:src="@drawable/baseline_account_circle_24">
         </ImageView>
 
@@ -26,6 +28,7 @@
                 android:id="@+id/loginemailInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:hint="@string/email"
                 android:drawableStart="@drawable/baseline_email_24"
                 android:layout_marginTop="32dp"
@@ -41,6 +44,7 @@
             android:id="@+id/loginpasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:hint="@string/password"
             android:drawablePadding="10dp"
             android:layout_marginTop="32dp"
@@ -52,7 +56,6 @@
             android:padding="12dp"
             android:inputType="textPassword">
         </EditText>
-
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
@@ -65,9 +68,7 @@
             android:background="@drawable/plus_button_background"
             android:textColor="@color/black"
             android:textAllCaps="false">
-
         </Button>
-
         <ProgressBar
             android:id="@+id/LogINprogressBar"
             android:visibility="gone"
@@ -75,10 +76,6 @@
             android:layout_height="wrap_content"
             android:progressBackgroundTint="@color/dark_gray"
             android:layout_marginTop="10dp">
-
         </ProgressBar>
         </LinearLayout>
-
-
-
 </RelativeLayout>
