@@ -30,6 +30,4 @@ interface NoteDAO {
     @Query("SELECT * FROM note_table WHERE userID = :uid  ORDER BY timeStamp DESC")
     fun getNotesByUser(uid: String): LiveData<List<Note>>
 
-    @Query("SELECT * FROM note_table WHERE timeStamp = :timestamp")
-    fun getReminderDate(timestamp:Long): LiveData<Note>
 }

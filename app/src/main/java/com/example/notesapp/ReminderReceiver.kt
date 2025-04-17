@@ -12,8 +12,6 @@ import java.util.Random
 class ReminderReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val title = intent?.getStringExtra("noteTitle")
-        val content = intent?.getStringExtra("noteDescription")
-
         val channelId = "note_reminder_channel"
         val manager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -24,8 +22,8 @@ class ReminderReceiver: BroadcastReceiver() {
 
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.logoo)
-            .setContentTitle(title)
-            .setContentText(content)
+            .setContentTitle("Note Reminder.")
+            .setContentText(title)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .build()

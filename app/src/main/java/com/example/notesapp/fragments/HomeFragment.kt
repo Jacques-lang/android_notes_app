@@ -38,7 +38,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         return binding.root
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,8 +55,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val user = FirebaseAuth.getInstance().currentUser
         val email = user?.email
         val username = email?.substringBefore("@")
-        binding.menuLabel?.text = "Welcome " + username + "..."
-        binding.menuLabel?.apply {
+        binding.menuLabel.text = "Welcome $username..."
+        binding.menuLabel.apply {
             alpha = 0f
             visibility = View.VISIBLE
             animate()
@@ -83,7 +83,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }, 200)
         }
 
-        binding.menuIcon?.setOnClickListener {
+        binding.menuIcon.setOnClickListener {
             it.startAnimation(menuIcon_animation)
             it.postDelayed({
                 val mainActivity = activity as? MainActivity
@@ -119,21 +119,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 if(query.isNotEmpty()){
                     isSearching = true
                     searchNote(query)
-                }
-
-                else{
+                }else{
                     isSearching = false
                     notesViewModel.getNotesForCurrentUser().observe(viewLifecycleOwner) { list ->
                         notesAdapter.differ.submitList(list)
                         updateUI(list)
                     }
                     binding.noResultsText.visibility = View.GONE
-
-
                 }
-
             }
-
             override fun afterTextChanged(p0: Editable?) {}
         })
     }
@@ -143,10 +137,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             if (note.isNotEmpty()) {
                 binding.recyclerview.visibility = View.VISIBLE
                 binding.emptyNotesImage?.visibility = View.GONE
-                binding.noNotesLetter?.visibility = View.GONE
+                binding.noNotesLetter.visibility = View.GONE
             } else {
                 binding.emptyNotesImage?.visibility = View.VISIBLE
-                binding.noNotesLetter?.visibility = View.VISIBLE
+                binding.noNotesLetter.visibility = View.VISIBLE
                 binding.recyclerview.visibility = View.GONE
             }
         }
@@ -173,17 +167,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         isSearching = true
         val searchQuery = "%${query?.trim()}%"
         notesViewModel.getNotesForCurrentUser().observe(viewLifecycleOwner) { allNotes ->
-            // Only continue if database actually has notes
             if (!allNotes.isNullOrEmpty()) {
                 notesViewModel.searchNote(searchQuery).observe(viewLifecycleOwner) { filteredList ->
                     notesAdapter.differ.submitList(filteredList)
 
-                    // Only show noResultsText if filteredList is empty but DB is not
                     binding.noResultsText.visibility =
                         if (filteredList.isNullOrEmpty()) View.VISIBLE else View.GONE
                 }
             } else {
-                // DB is empty, don't show "no results"
                 notesAdapter.differ.submitList(emptyList())
                 binding.noResultsText.visibility = View.GONE
             }

@@ -14,6 +14,4 @@ class Repository(private val db: NoteDatabase){
     fun getNotesByUser(userId: String) = db.getNoteDao().getNotesByUser(userId)
 
     fun search(query: String?, uid:String) = db.getNoteDao().search(query, uid)
-
-    fun getReminderDate(timestamp: Long) = db.getNoteDao().getReminderDate(timestamp)
 }

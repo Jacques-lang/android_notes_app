@@ -85,6 +85,8 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
                 }
             }
         }
+        binding.edittitleinput.setText(currentNote.title)
+        binding.editdescriptioninput.setText(currentNote.description)
 
         val edit_button_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
         val delete_button_animation = AnimationUtils.loadAnimation(context, R.anim.button_press)
@@ -115,10 +117,6 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
                 .load(currentNote.fileURL)
                 .into(binding.editUploadedImageView)
         }
-
-        binding.edittitleinput.setText(currentNote.title)
-        binding.editdescriptioninput.setText(currentNote.description)
-
         binding.editNotebutton.setOnClickListener {
             it.postDelayed({editSaveNote(editNoteView)}, 600)
 
@@ -209,8 +207,14 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
             binding.editframelayout.layoutParams?.height = newHeight
             binding.editframelayout.requestLayout()
         }
-
     }
+
+    private fun formatReminderTime(timeInMillis: Long):String {
+        val sdf = java.text.SimpleDateFormat("EEEE, h:mm a", java.util.Locale.getDefault())
+        sdf.timeZone = java.util.TimeZone.getDefault()
+        return sdf.format(java.util.Date(timeInMillis))
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         currentNote.fileURL?.let{
@@ -306,8 +310,16 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
         datePicker.show(parentFragmentManager, "datePicker")
 
         datePicker.addOnPositiveButtonClickListener { selectedDate ->
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = selectedDate
+            val calendar = Calendar.getInstance(java.util.TimeZone.getTimeZone("UTC")).apply {
+                timeInMillis = selectedDate
+            }
+
+            calendar.timeZone = java.util.TimeZone.getDefault()
+
+            calendar.set(Calendar.HOUR_OF_DAY, 0)
+            calendar.set(Calendar.MINUTE, 0)
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
 
             val timePicker = TimePickerDialog(
                 requireContext(),
@@ -315,9 +327,11 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
                     calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
                     calendar.set(Calendar.MINUTE, minute)
                     calendar.set(Calendar.SECOND, 0)
+                    calendar.set(Calendar.MILLISECOND, 0)
                     scheduleReminder(calendar.timeInMillis)
                 }, calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE), false
+                calendar.get(Calendar.MINUTE),
+                false
             )
             timePicker.show()
         }
@@ -346,8 +360,15 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note){
 
         try{
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
-            Toast.makeText(requireContext(), "Reminder Set!", Toast.LENGTH_SHORT).show()
-        }catch (e: SecurityException){
+
+            val updateNote = currentNote.copy(reminderTime = triggerTime)
+            notesViewModel.updateNote(updateNote)
+            currentNote = updateNote
+
+            val formatted = formatReminderTime(triggerTime)
+            Toast.makeText(context, "Reminder set for ${formatted}", Toast.LENGTH_SHORT).show()
+
+        }catch (_: SecurityException){
             Toast.makeText(context, "Alarm permission denied", Toast.LENGTH_SHORT).show()
         }
 
